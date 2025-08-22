@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Danibot — Your DevOps Sidekick</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f172a;
+    --panel:#0b2545;
+    --panel-2:#13315c;
+    --accent:#00d4ff;
+    --accent-2:#7c3aed;
+    --user:#2563eb;
+    --bot:#f59e0b;
+    --text:#e5e7eb;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", monospace;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.25), transparent 60%),
+      radial-gradient(900px 700px at 110% 10%, rgba(0,212,255,.20), transparent 60%),
+      linear-gradient(180deg, #0b1020 0%, #0f172a 100%);
+    color:var(--text);
+    min-height:100svh; display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  #app{
+    width:min(1100px, 100%); background:linear-gradient(180deg, rgba(19,49,92,.95), rgba(11,37,69,.95));
+    border:1px solid rgba(255,255,255,.08); border-radius:18px; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    overflow:hidden;
+  }
+  header{
+    display:flex; align-items:center; gap:16px; padding:18px 22px; border-bottom:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(90deg, rgba(0,212,255,.18), rgba(124,58,237,.18));
+  }
+  .avatar{
+    width:48px; height:48px; border-radius:50%; background:radial-gradient(circle at 50% 30%, #ffd1f4, #f8a4ff 40%, #8b5cf6 100%);
+    display:grid; place-items:center; box-shadow:0 6px 18px rgba(139,92,246,.45);
+    overflow:hidden;
+  }
+  .avatar svg{ width:44px; height:44px }
+  .title{ font-weight:700; font-size:18px; letter-spacing:.3px }
+  .subtitle{ opacity:.8; font-size:12px }
+  #chat{
+    height:min(70svh, 680px); overflow:auto; padding:18px 22px; display:flex; flex-direction:column; gap:14px;
+    background:
+      radial-gradient(800px 500px at -10% 110%, rgba(124,58,237,.15), transparent 60%),
+      radial-gradient(800px 500px at 110% 120%, rgba(0,212,255,.12), transparent 60%);
+  }
+  .msg{ display:flex; gap:10px; }
+  .msg.user{ justify-content:flex-end; }
+  .bubble{
+    max-width:72ch; padding:12px 14px; border-radius:16px; line-height:1.45; white-space:pre-wrap;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bubble.user{ background:linear-gradient(180deg, rgba(37,99,235,.35), rgba(37,99,235,.2)); color:#eaf2ff; border-bottom-right-radius:6px}
+  .bubble.bot { background:linear-gradient(180deg, rgba(245,158,11,.28), rgba(245,158,11,.18)); color:#fffbea; border-bottom-left-radius:6px}
+  #bar{ display:flex; gap:10px; padding:14px; border-top:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.15); }
+  #q{ flex:1; padding:12px 14px; border-radius:28px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); color:var(--text); outline:none }
+  #q::placeholder{ color:#b6c1d1 }
+  #send{ padding:12px 18px; border-radius:28px; border:1px solid rgba(255,255,255,.18); cursor:pointer; color:#041019;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2)); font-weight:700; letter-spacing:.3px }
+  #send:active{ transform:translateY(1px) }
+  .hint{ padding: 0 22px 14px; font-size:12px; opacity:.8 }
+  .kbd{ background:rgba(255,255,255,.08); padding:1px 6px; border:1px solid rgba(255,255,255,.2); border-radius:6px; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace}
+  code { font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace }
+  .tagline { font-size:12px; opacity:.85 }
+</style>
+</head>
+<body>
+<main id="app" role="application" aria-label="Danibot — Your DevOps Sidekick">
+<header>
+  <div class="avatar" aria-hidden="true">
+    <!-- Female robot avatar (long blonde hair) -->
+    <svg viewBox="0 0 64 64" fill="none">
+      <defs>
+        <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFE38A"/>
+          <stop offset=".6" stop-color="#FFD24D"/>
+          <stop offset="1" stop-color="#FFC300"/>
+        </linearGradient>
+      </defs>
+      <circle cx="32" cy="32" r="30" fill="#1f2a44"/>
+      <path d="M12 30c4-12 20-18 32-8 6 5 8 16 4 22-2 3-6 6-10 7 1-3 1-6-1-9-4-6-14-7-21-1-2-3-4-7-4-11Z" fill="url(#hair)"/>
+      <rect x="18" y="22" width="28" height="24" rx="10" fill="#c7d2fe" stroke="#93c5fd"/>
+      <circle cx="28" cy="34" r="3" fill="#0f172a"/>
+      <circle cx="38" cy="34" r="3" fill="#0f172a"/>
+      <rect x="26" y="41" width="12" height="3" rx="1.5" fill="#0f172a"/>
+      <rect x="30" y="18" width="4" height="6" rx="2" fill="#d4d4d8"/>
+    </svg>
+  </div>
+  <div>
+    <div class="title">Danibot — Your DevOps Sidekick</div>
+    <div class="tagline">Linux · AWS · Git/GitHub · SSH</div>
+    <div class="tagline">version beta</div>
+  </div>
+</header>
+
+<div id="chat" aria-live="polite" aria-label="Chat messages"></div>
+<div class="hint">Press <span class="kbd">Enter</span> or click <span class="kbd">Send</span>. Try <span class="kbd">install aws cli</span>, <span class="kbd">create ssh key</span>, <span class="kbd">launch ec2</span>, or <span class="kbd">git push</span>.</div>
+
+<div id="bar">
+  <input id="q" type="text" placeholder="Ask a command question..." autocomplete="off" />
+  <button id="send" type="button" title="Send (Enter)">Send</button>
+</div>
+
+<script>
+const commands = [
+
+/* LINUX BASICS */
+{keywords:["make file","create file"], response:`touch filename.txt`},
+{keywords:["list files","ls"], response:`ls -l
+ls -la
+ls -lh
+ls -lh /var/log`},
+{keywords:["current directory","pwd"], response:`pwd`},
+{keywords:["change directory","cd"], response:`cd /path/to/dir
+cd ..
+cd /var/log
+cd ~/projects`},
+{keywords:["make directory","mkdir","make folder"], response:`mkdir new_folder
+mkdir reports
+mkdir -p /opt/apps/data`},
+{keywords:["copy file","cp"], response:`cp source_file dest_file
+cp notes.txt notes.bak
+cp -r /etc/nginx /backup/nginx`},
+{keywords:["move file","mv"], response:`mv old_name new_name
+mv test.txt docs/
+mv old.cfg new.cfg`},
+{keywords:["remove file","rm"], response:`rm filename
+rm error.log
+rm -rf dist`},
+{keywords:["search in file","grep"], response:`grep 'pattern' filename
+grep -n 'ERROR' /var/log/syslog
+grep -ri 'todo' .`},
+{keywords:["change permissions","chmod"], response:`chmod 755 filename
+chmod 644 index.html
+chmod -R 755 /var/www/html`},
+{keywords:["process list","ps","top"], response:`ps aux | head
+top`},
+
+/* SSH & KEYS */
+{keywords:["install ssh","openssh"], response:`sudo apt update && sudo apt install -y openssh-client openssh-server
+sudo systemctl enable ssh && sudo systemctl start ssh`},
+{keywords:["ssh connect","ssh login"], response:`ssh user@hostname
+ssh ubuntu@203.0.113.10
+ssh ec2-user@ec2-1-2-3-4.compute.amazonaws.com`},
+{keywords:["generate ssh key","ssh keygen","create ssh key","ssh key"], response:`ssh-keygen -t rsa -b 4096 -m PEM -f ~/.ssh/aws_key
+# Enter passphrase (empty for no passphrase): "12345"
+# Enter same passphrase again: "12345"
+chmod 600 ~/.ssh/aws_key
+cat ~/.ssh/aws_key.pub`},
+
+/* GIT / GITHUB */
+{keywords:["git clone"], response:`git clone https://github.com/user/repo.git
+cd repo
+ls -la
+git branch -a`},
+{keywords:["git status"], response:`git status`},
+{keywords:["git add"], response:`git add file.txt
+git add -A`},
+{keywords:["git commit"], response:`git commit -m "Describe your change"`},
+{keywords:["git push"], response:`git push origin main
+git push -u origin $(git branch --show-current)`},
+{keywords:["git pull"], response:`git pull origin main`},
+{keywords:["git branch"], response:`git branch
+git branch -r
+git checkout -b feature/x`},
+{keywords:["git merge"], response:`git merge develop`},
+
+/* AWS CLI INSTALL & CONFIG */
+{keywords:["install aws cli","configure aws","aws configure","configure aws cli","access key","secret key"], response:`configure aws cli
+# Install and configure AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+# (to confirm)
+aws --version
+
+# (AWS) IAM Access Key Creation:
+# Identity and Access Management (IAM) -> Users -> USERNAME
+# Create access key -> CLI -> Copy keys
+
+# Configure keys in Ubuntu
+aws configure
+AWS Access Key ID: ENTERAWSACCESSKEYHERE
+AWS Secret Access Key: enterawssecretkeyhere
+Default region: eu-north-1
+Default output format: json
+
+# Verify installation:
+aws iam list-users
+
+If you see your AWS user name here. Congratulations!!
+AWS CLI has been successfully installed! 🎉`},
+
+/* EC2 */
+{keywords:["list ec2","describe instances"], response:`aws ec2 describe-instances --output table
+aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --output table`},
+{keywords:["launch ec2","run instance"], response:`aws ec2 run-instances \
+--image-id ami-0abcdef1234567890 \
+--count 1 \
+--instance-type t3.micro \
+--key-name aws_key \
+--security-group-ids sg-0123456789abcdef0 \
+--subnet-id subnet-6e7f829e`},
+{keywords:["start ec2"], response:`aws ec2 start-instances --instance-ids i-0123456789abcdef0`},
+{keywords:["stop ec2"], response:`aws ec2 stop-instances --instance-ids i-0123456789abcdef0`},
+{keywords:["terminate ec2"], response:`aws ec2 terminate-instances --instance-ids i-0123456789abcdef0`},
+{keywords:["get ec2 public ip"], response:`aws ec2 describe-instances --instance-ids i-0123456789abcdef0 --query "Reservations[0].Instances[0].PublicIpAddress" --output text`},
+
+/* S3 */
+{keywords:["list buckets"], response:`aws s3 ls`},
+{keywords:["create s3 bucket"], response:`aws s3 mb s3://my-bucket`},
+{keywords:["upload to s3"], response:`aws s3 cp ./file.txt s3://my-bucket/
+aws s3 cp ./build s3://my-bucket/build --recursive`},
+{keywords:["download from s3"], response:`aws s3 cp s3://my-bucket/file.txt ./ 
+aws s3 sync s3://my-bucket ./backup`},
+
+/* NETWORK VPC/SUBNET/SG */
+{keywords:["list vpcs"], response:`aws ec2 describe-vpcs --output table`},
+{keywords:["list subnets"], response:`aws ec2 describe-subnets --output table`},
+{keywords:["list security groups"], response:`aws ec2 describe-security-groups --output table`},
+
+/* SSH INTO EC2 */
+{keywords:["ssh into ec2"], response:`ssh -i ~/.ssh/aws_key ec2-user@ec2-203-0-113-25.compute-1.amazonaws.com
+ssh -i ~/.ssh/aws_key ubuntu@203.0.113.25`},
+
+/* HELP */
+{keywords:["help"], response:`Try: Linux (ls, grep, chmod), SSH (ssh key, connect), Git/GitHub (clone, push, merge), AWS (aws cli, configure aws, launch ec2, list buckets).`}
+];
+
+const chat = document.getElementById('chat');
+const input = document.getElementById('q');
+const sendBtn = document.getElementById('send');
+
+function addMsg(text, who){
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ' + (who==='user'?'user':'bot');
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble ' + (who==='user'?'user':'bot');
+  bubble.textContent = text;
+  wrap.appendChild(bubble);
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function matchResponse(query){
+  const q = query.toLowerCase();
+  for(const item of commands){
+    for(const kw of item.keywords){
+      if(q.includes(kw.toLowerCase())) return item.response;
+    }
+  }
+  const tokens = q.split(/[^a-z0-9]+/).filter(Boolean);
+  for(const item of commands){
+    if(item.keywords.some(kw=>tokens.some(t=>kw.toLowerCase().includes(t)||t.includes(kw.toLowerCase())))) return item.response;
+  }
+  return "❌ Sorry, I don't know that yet. Try 'help' for examples.";
+}
+
+function handleSend(){
+  const text = input.value.trim();
+  if(!text) return;
+  addMsg(text,'user');
+  const resp = matchResponse(text);
+  setTimeout(()=>addMsg(resp,'bot'),200);
+  input.value='';
+}
+
+sendBtn.addEventListener('click', handleSend);
+input.addEventListener('keydown', e=>{ if(e.key==='Enter') handleSend(); });
+</script>
+</main>
+</body>
+</html>
