@@ -13,9 +13,10 @@ Danibot is a lightweight, rule-based chatbot designed to help you with DevOps ta
 
 ## Usage
 
-1. Open `Danibot.html` in your browser or embed it in your website.
+1. Open `danibot.html` in your browser or embed it in your website.
 2. Type a command in the input box.
 3. Press **Run** to see the bot’s response.
 
 Example commands:
 
+# test
