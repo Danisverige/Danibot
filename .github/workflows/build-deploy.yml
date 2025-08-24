@@ -1,9 +1,10 @@
-name: Build and Deploy Danibot
+name: Build Danibot
 
 on:
   push:
     branches:
-      - main   # run only when changes are pushed to main
+      - main
+  workflow_dispatch:   # allows manual trigger
 
 jobs:
   build:
@@ -14,29 +15,13 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      # Setup Node.js (for build tools like npm)
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Build project (e.g., bundle/minify into dist/)
+      # Build project (for now just copy HTML into dist/)
       - name: Build project
-        run: npm run build
+        run: |
+          mkdir -p dist
+          cp Danibot.html dist/
 
-      # Deploy to S3
-      - name: Deploy to S3
-        uses: aws-actions/s3-sync@v2
-        with:
-          args: --delete
-        env:
-          AWS_S3_BUCKET: your-s3-bucket-name-here
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: eu-north-1   # change if needed
-          SOURCE_DIR: dist
+      # Show contents of dist folder
+      - name: Show build contents
+        run: ls -l dist/
 
