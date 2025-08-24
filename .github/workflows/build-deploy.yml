@@ -19,7 +19,8 @@ jobs:
       - name: Build project
         run: |
           mkdir -p dist
-          cp Danibot.html dist/
+          cp danibot.html dist/
+          ls -l dist/
 
       # Show contents of dist folder
       - name: Show build contents
