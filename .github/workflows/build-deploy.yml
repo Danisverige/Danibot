@@ -30,7 +30,7 @@ jobs:
 
       # Deploy to S3
       - name: Deploy to S3
-        uses: aws-actions/s3-sync@v1
+        uses: aws-actions/s3-sync@v2
         with:
           args: --delete
         env:
