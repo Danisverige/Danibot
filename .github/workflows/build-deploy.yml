@@ -1,0 +1,42 @@
+name: Build and Deploy Danibot
+
+on:
+  push:
+    branches:
+      - main   # run only when changes are pushed to main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      # Setup Node.js (for build tools like npm)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build project (e.g., bundle/minify into dist/)
+      - name: Build project
+        run: npm run build
+
+      # Deploy to S3
+      - name: Deploy to S3
+        uses: aws-actions/s3-sync@v1
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: your-s3-bucket-name-here
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-north-1   # change if needed
+          SOURCE_DIR: dist
+
