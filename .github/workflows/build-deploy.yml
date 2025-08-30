@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code
+      # Checkout the repository code at the root
       - name: Checkout source
         uses: actions/checkout@v3
 
@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '18'
 
-      # Install npm dependencies (run at repo root)
+      # Install npm dependencies (repo root)
       - name: Install dependencies
         run: npm install
 
@@ -33,7 +33,7 @@ jobs:
       - name: Run Jest tests
         run: npm test
 
-      # Placeholder for Snyk (run once you have an account)
+      # Placeholder for Snyk (optional, run once you have an account)
       #- name: Snyk security scan
       #  uses: snyk/actions/node@master
       #  with:
