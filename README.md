@@ -7,28 +7,34 @@
 
 ---
 
-## 🚀 Features
+## 🎬 Demo
 
-- Rule-based responses to Linux commands  
-- Guidance for SSH key management  
-- Git/GitHub command examples  
-- AWS command references  
-- Runs entirely in the browser (no installation required)  
-- Fully tested with **Jest**  
-- Security scanning integrated via **Snyk**  
-- Linting enforced with **ESLint** for clean, maintainable code  
+![Danibot in action](assets/danibot-demo.gif)  
+*GIF placeholder — replace with actual bot demo showing typing and responses.*
+
+[Try Danibot Live](https://danisverige.github.io/Danibot/dist/danibot.html)  
 
 ---
 
-## 🎯 Usage
+## 🚀 Features
 
-1. Open `danibot.html` in your browser or embed it in your website.  
-2. Type a command in the input box.  
-3. Press **Run** to see the bot’s response.  
+| Feature               | Description |
+|-----------------------|-------------|
+| Linux Commands        | Rule-based responses for common Linux commands |
+| SSH Management        | Guidance for generating and using SSH keys |
+| Git/GitHub            | Common Git commands & workflow examples |
+| AWS Commands          | S3, EC2, and CLI references |
+| Browser-based         | No installation needed, runs in any modern browser |
+| Tested & Secure       | Fully tested with Jest; Snyk scans dependencies |
+| Code Quality          | ESLint ensures clean, maintainable code |
 
-**Example commands:**
+---
+
+## 💬 Example Interaction
+
+**User:** `git status`  
+**Danibot:**  
 ```text
-ls -la
-ssh-keygen -t rsa
-git status
-aws s3 ls
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
