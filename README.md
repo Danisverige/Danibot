@@ -12,7 +12,7 @@
 ![Danibot in action](assets/danibot-demo.gif)  
 *GIF placeholder — replace with actual bot demo showing typing and responses.*
 
-[Try Danibot Live](https://danisverige.github.io/Danibot/dist/danibot.html)  
+[Try Danibot Live](https://danisverige.github.io/Danibot/danibot.html)  
 
 ---
 
