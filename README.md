@@ -1,7 +1,7 @@
 # Danibot - Your DevOps Sidekick 🤖
 
-![CI](https://github.com/<Danisverige>/<Danibot>/actions/workflows/build-deploy.yml/badge.svg)
-[![Known Vulnerabilities](https://snyk.io/test/github/<Danisverige>/<Danibot>/badge.svg)](https://snyk.io/test/github/<username>/<repo>)
+![CI](https://github.com/<danisverige>/<Danibot>/actions/workflows/build-deploy.yml/badge.svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/<danisverige>/<Danibot>/badge.svg)](https://snyk.io/test/github/<username>/<repo>)
 
 **Danibot** is a lightweight, rule-based chatbot designed to assist developers and DevOps engineers. It provides guidance, example commands, and best practices for Linux, SSH, Git/GitHub, and AWS — all from a single HTML/JS file that runs entirely in your browser.
 
