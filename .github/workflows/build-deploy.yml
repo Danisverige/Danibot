@@ -3,7 +3,7 @@ name: Build Danibot
 on:
   push:
     branches:
-      - main
+      - '**'        # Runs on all branches
   workflow_dispatch:
 
 jobs:
@@ -33,13 +33,13 @@ jobs:
       - name: Run Jest tests
         run: npm test
 
-      # Disabled Snyk placeholder (safe, will not run)
-      # - name: Snyk security scan
-      #   uses: snyk/actions/node@master
-      #   with:
-      #     command: test
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      # Run Snyk security scan
+      - name: Snyk security scan
+        uses: snyk/actions/node@master
+        with:
+          command: test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       # Build project (copy HTML into dist/)
       - name: Build project
