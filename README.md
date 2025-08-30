@@ -1,22 +1,35 @@
-# Danibot
 # Danibot - Your DevOps Sidekick 🤖
 
-Danibot is a lightweight, rule-based chatbot designed to help you with DevOps tasks. It provides guidance and example commands for Linux, SSH, Git/GitHub, and AWS — all from a single HTML/JS file that you can embed or run in any browser.
+![CI](https://github.com/<username>/<repo>/actions/workflows/build-deploy.yml/badge.svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/<username>/<repo>/badge.svg)](https://snyk.io/test/github/<username>/<repo>)
 
-## Features
+**Danibot** is a lightweight, rule-based chatbot designed to assist developers and DevOps engineers. It provides guidance, example commands, and best practices for Linux, SSH, Git/GitHub, and AWS — all from a single HTML/JS file that runs entirely in your browser.
 
-- Rule-based responses to Linux commands
-- Guidance for SSH key management
-- Git/GitHub command examples
-- AWS command references
-- Runs entirely in the browser (no installation required)
+---
 
-## Usage
+## 🚀 Features
 
-1. Open `danibot.html` in your browser or embed it in your website.
-2. Type a command in the input box.
-3. Press **Run** to see the bot’s response.
+- Rule-based responses to Linux commands  
+- Guidance for SSH key management  
+- Git/GitHub command examples  
+- AWS command references  
+- Runs entirely in the browser (no installation required)  
+- Fully tested with **Jest**  
+- Security scanning integrated via **Snyk**  
+- Linting enforced with **ESLint** for clean, maintainable code  
 
-Example commands:
+---
 
-# test
+## 🎯 Usage
+
+1. Open `danibot.html` in your browser or embed it in your website.  
+2. Type a command in the input box.  
+3. Press **Run** to see the bot’s response.  
+
+**Example commands:**
+```text
+ls -la
+ssh-keygen -t rsa
+git status
+aws s3 ls
+
