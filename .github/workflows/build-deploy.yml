@@ -11,18 +11,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
+      # Checkout the repository code
       - name: Checkout source
         uses: actions/checkout@v3
 
-      # Build project (for now just copy HTML into dist/)
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install npm dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run ESLint to check code for syntax/style issues
+      - name: Run ESLint
+        run: npm run lint
+
+      # Run Jest to execute unit tests
+      - name: Run Jest tests
+        run: npm test
+
+      # Placeholder for Snyk security scan (enable after creating an account)
+      #- name: Snyk security scan
+      #  uses: snyk/actions/node@master
+      #  with:
+      #    command: test
+      #  env:
+      #    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # Build project (copy HTML into dist/)
       - name: Build project
         run: |
           mkdir -p dist
           cp danibot.html dist/
           ls -l dist/
 
-      # Show contents of dist folder
+      # Show contents of the dist folder
       - name: Show build contents
         run: ls -l dist/
-
