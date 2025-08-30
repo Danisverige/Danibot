@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code at the root
+      # Checkout the repository code
       - name: Checkout source
         uses: actions/checkout@v3
 
@@ -21,17 +21,20 @@ jobs:
         with:
           node-version: '18'
 
-      # Install npm dependencies (repo root)
+      # Install npm dependencies (set working-directory to repo folder)
       - name: Install dependencies
         run: npm install
+        working-directory: ./Danibot
 
       # Run ESLint (lint JS code)
       - name: Run ESLint
         run: npm run lint
+        working-directory: ./Danibot
 
       # Run Jest tests (unit tests)
       - name: Run Jest tests
         run: npm test
+        working-directory: ./Danibot
 
       # Placeholder for Snyk (optional, run once you have an account)
       #- name: Snyk security scan
@@ -47,7 +50,9 @@ jobs:
           mkdir -p dist
           cp danibot.html dist/
           ls -l dist/
+        working-directory: ./Danibot
 
       # Show contents of the dist folder
       - name: Show build contents
         run: ls -l dist/
+        working-directory: ./Danibot
