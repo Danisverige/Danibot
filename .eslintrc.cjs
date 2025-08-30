@@ -1,5 +1,6 @@
-// eslint.config.cjs
+// .eslintrc.cjs
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true
@@ -10,7 +11,6 @@ module.exports = {
     sourceType: "module"
   },
   rules: {
-    // Add custom rules here if needed
+    // Add custom rules here
   }
 };
-
