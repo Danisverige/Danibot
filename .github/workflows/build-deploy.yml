@@ -21,20 +21,17 @@ jobs:
         with:
           node-version: '18'
 
-      # Install npm dependencies in repo root
+      # Install npm dependencies (run at repo root)
       - name: Install dependencies
         run: npm install
-        working-directory: ./
 
-      # Run ESLint in repo root
+      # Run ESLint (lint JS code)
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./
 
-      # Run Jest tests in repo root
+      # Run Jest tests (unit tests)
       - name: Run Jest tests
         run: npm test
-        working-directory: ./
 
       # Placeholder for Snyk (run once you have an account)
       #- name: Snyk security scan
@@ -50,9 +47,7 @@ jobs:
           mkdir -p dist
           cp danibot.html dist/
           ls -l dist/
-        working-directory: ./
 
       # Show contents of the dist folder
       - name: Show build contents
         run: ls -l dist/
-        working-directory: ./
