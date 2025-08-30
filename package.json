@@ -1,0 +1,15 @@
+{
+  "name": "Danibot",
+  "version": "1.0.0",
+  "main": "chatbot.js",
+  "license": "ISC",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^9.34.0",
+    "jest": "^30.1.1"
+  }
+}
+

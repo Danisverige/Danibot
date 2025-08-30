@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '18'
 
-      # Install dependencies
+      # Install npm dependencies
       - name: Install dependencies
         run: npm install
 
@@ -33,22 +33,21 @@ jobs:
       - name: Run Jest tests
         run: npm test
 
-      # Placeholder for Snyk security scan (enable after creating an account)
-      - name: Snyk security scan
-        if: false  # disabled until you add SNYK_TOKEN and want to run
-        uses: snyk/actions/node@master
-        with:
-          command: test
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      # Disabled Snyk placeholder (safe, will not run)
+      # - name: Snyk security scan
+      #   uses: snyk/actions/node@master
+      #   with:
+      #     command: test
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      # Build project
+      # Build project (copy HTML into dist/)
       - name: Build project
         run: |
           mkdir -p dist
           cp danibot.html dist/
           ls -l dist/
 
-      # Show build contents
+      # Show contents of the dist folder
       - name: Show build contents
         run: ls -l dist/
