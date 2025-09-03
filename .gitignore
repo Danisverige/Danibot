@@ -1,1 +1,35 @@
+# Node modules (very important)
 node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# Jest coverage output
+coverage/
+
+# Snyk-related files (if any)
+.snyk
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build/output folders (common for frontend projects)
+dist/
+build/
+
+# Optional npm cache folder
+.npm
+
+# IDE/editor configs
+.vscode/
+.idea/
+
+# Miscellaneous
+*.swp
+
